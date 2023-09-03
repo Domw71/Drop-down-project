@@ -1,0 +1,61 @@
+import tkinter as tk
+import tkinter.ttk as ttk
+
+root = tk.Tk()
+root.title("Title")
+
+# Initialize variables for batch number and kill date
+batch_number = tk.StringVar()
+kill_date = tk.StringVar()
+origin_var = tk.StringVar()
+slaughtered_var = tk.StringVar()
+packed_var = tk.StringVar()
+halal_var = tk.StringVar()
+red_tractor_var = tk.StringVar()
+raised_var = tk.StringVar()
+
+# Create a frame for the categories (Batch Number, Kill Date, etc.) on the right
+right_frame = tk.Frame(root)
+right_frame.pack(side="right")
+
+# Create a list of labels and variables for each category
+categories = [
+    ("Batch Number:", batch_number),
+    ("Kill Date:", kill_date),
+    ("Raised:", raised_var),
+    ("Origin:", origin_var),
+    ("Slaughtered:", slaughtered_var),
+    ("Packed:", packed_var),
+    ("Red/non:", red_tractor_var),
+    ("Halal/non:", halal_var)
+]
+
+# Create a dictionary to map variable names to their dropdown values
+dropdown_values = {
+    "raised_var": ["IE UK", "DK UK", "IE UK"],
+    "origin_var": ["UK", "DK", "IE"],
+    "slaughtered_var": ["Sargents", "West Scottish", "Pitstock"],
+    "packed_var": ["UK2064"],
+    "red_tractor_var": ["Yes", "No"],
+    "halal_var": ["Yes", "No"]
+}
+
+# Create frames for each category and add labels/comboboxes
+for category, var in categories:
+    frame = tk.Frame(right_frame)
+    frame.pack(side="top", padx=5, pady=5, fill="both")
+
+    label = tk.Label(frame, text=category)
+    label.pack(side="left", padx=5)
+
+    if var in dropdown_values.values():
+        # Use a Combobox with specific values for the variables in dropdown_values
+        var_name = [key for key, value in dropdown_values.items() if value == var][0]
+        dropdown = ttk.Combobox(frame, textvariable=var, values=dropdown_values[var_name])
+        dropdown.pack(side="right", padx=5)
+    else:
+        # Use an Entry for other variables
+        entry = tk.Entry(frame, textvariable=var)
+        entry.pack(side="right", padx=5)
+
+root.mainloop()
